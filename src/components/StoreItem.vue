@@ -35,14 +35,24 @@
         class="mx-auto"
       ></v-img>
       <v-card-text>{{ product.data.description }}</v-card-text>
+      <v-btn color="red" @click="deleteProduct">Delete</v-btn>
     </v-card>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ProductDoc } from '../types/product';
+import { useProductStore } from '../stores/ProductStore';
 
-defineProps<{
+const { product } = defineProps<{
   product: ProductDoc
 }>();
+
+const productStore = useProductStore();
+
+// Method to delete the current product
+const deleteProduct = async () =>{
+  console.log('Deleting product:', product.id);
+  await productStore.deleteProduct(product.id);
+};
 </script>

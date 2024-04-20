@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ProductDoc } from '../types/product';
 import { initProducts } from '../data-init';
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
 
 
 export const useProductStore = defineStore('ProductStore', {
@@ -39,6 +39,22 @@ export const useProductStore = defineStore('ProductStore', {
             },
           };
         });
+      }
+    },
+
+    async deleteProduct(productId: string) {
+      console.log("Made it to the store")
+      try {
+        const db = getFirestore();
+        const productRef = doc(db, 'products', productId);
+        await deleteDoc(productRef);
+        console.log("Deleted product with ID:", productId);
+        // Update the products array in Pinia state after deletion
+        this.products = this.products.filter(product => product.id !== productId);
+        this.allProducts = this.allProducts.filter(product => product.id !== productId);
+        console.log("Updated pinia stuff")
+      } catch (error) {
+        console.error('Error deleting product:', error);
       }
     },
 

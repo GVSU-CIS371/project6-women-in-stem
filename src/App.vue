@@ -25,17 +25,19 @@
     </v-main>
 
     <v-dialog v-model="showDialog" persistent max-width="600px">
-      <v-card>
-        <v-card-title>
-          Add Product
-        </v-card-title>
-        <v-card-text>
-          <v-text-field v-model="newProduct.name" label="Name" ></v-text-field>
-          <v-text-field v-model="newProduct.imageURL" label="Image URL"></v-text-field>
-          <v-text-field v-model="newProduct.description" label="Description" ></v-text-field>
-          <v-text-field v-model="newProduct.price" label="Price" type="number"></v-text-field>
-          <v-text-field v-model="newProduct.stock" label="Stock" type="number" ></v-text-field>
-        </v-card-text>
+    <v-card>
+      <v-card-title>
+        Add Product
+      </v-card-title>
+      <v-card-text>
+        <v-text-field v-model="newProduct.name" label="Name"></v-text-field>
+        <v-text-field v-model="newProduct.image" label="Image URL"></v-text-field>
+        <v-text-field v-model="newProduct.description" label="Description"></v-text-field>
+        <v-text-field v-model="newProduct.price" label="Price" type="number"></v-text-field>
+        <v-text-field v-model="newProduct.rating" label="Rating" type="number"></v-text-field>
+        <v-text-field v-model="newProduct.stock" label="Stock" type="number"></v-text-field>
+        <v-text-field v-model="newProduct.category" label="Category"></v-text-field>
+      </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1"  @click="showDialog = false">Cancel</v-btn>
@@ -71,10 +73,12 @@ const showDialog = ref(false);
 // New product model
 const newProduct = ref({
   name: '',
-  imageURL: '',
+  image: '', 
   description: '',
   price: 0,
-  stock: 0
+  rating: 0, 
+  stock: 0,
+  category: '' 
 });
 
 
@@ -84,10 +88,12 @@ const createProduct = async () => {
   if (confirm("Are you sure you want to add this product?")) {
     const productData = {
       name: newProduct.value.name,
-      imageURL: newProduct.value.imageURL,
+      image: newProduct.value.image,
+      rating: newProduct.value.rating,
       description: newProduct.value.description,
       price: Number(newProduct.value.price),
-      stock: Number(newProduct.value.stock)
+      stock: Number(newProduct.value.stock),
+      category: newProduct.value.category
     };
 
     try {

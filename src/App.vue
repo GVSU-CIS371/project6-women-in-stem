@@ -60,7 +60,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import db  from "c:/Users/kcree/OneDrive/web dev/project6-women-in-stem/src/firebase"; // Make sure you have this import
+import db from "./firebase";
 import { collection, doc, setDoc } from 'firebase/firestore';
 
 // Your links

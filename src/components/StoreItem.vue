@@ -72,7 +72,7 @@ import { ref, reactive} from "vue";
 import { ProductDoc } from "../types/product";
 import { useProductStore } from "../stores/ProductStore";
 import { doc, updateDoc } from "firebase/firestore";
-import db from "c:/Users/kcree/OneDrive/web dev/project6-women-in-stem/src/firebase";
+import db from "../firebase";
 
 const { product } = defineProps<{
   product: ProductDoc;

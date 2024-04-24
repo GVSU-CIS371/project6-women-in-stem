@@ -37,21 +37,24 @@ export const useProductStore = defineStore("ProductStore", {
         }) as ProductDoc[];
       }
     },
-
+    async createProduct(productData: ProductDoc) {
+      if (confirm("Are you sure you want to add this product?")) {
+        const newProductRef = doc(collection(db, "products"));
+        await setDoc(newProductRef, productData.data);
+        this.products.push({ id: newProductRef.id, data: productData.data });
+        console.log("Product added with ID:", newProductRef.id);
+      }
+    },
     deleteProduct(productId: string) {
       console.log("Made it to the store");
       try {
         const productRef = doc(db, "products", productId);
         deleteDoc(productRef);
-        // console.log("Deleted product with ID:", productId);
-        // Update the products array in Pinia state after deletion
+       
         this.products = this.products.filter(
           (product) => product.id !== productId
         );
-        // this.allProducts = this.allProducts.filter(
-        //   (product) => product.id !== productId
-        // );
-        // console.log("Updated pinia stuff");
+      
       } catch (error) {
         console.error("Error deleting product:", error);
       }

@@ -1,9 +1,12 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+
 import HomeView from "./components/Home.vue";
+
 import ClothingView from "./components/Clothing.vue";
 import ElectronicsView from "./components/Electronics.vue";
 import GroceriesView from "./components/Groceries.vue";
 import BestSellerView from "./components/BestSeller.vue";
+
 const routes = [
   {
     path: "/",
@@ -30,6 +33,7 @@ const routes = [
     name: "bestseller",
     component: BestSellerView,
   },
+
 ];
 
 const router = createRouter({

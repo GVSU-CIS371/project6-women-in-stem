@@ -17,10 +17,10 @@
 
 <script lang="ts" setup>
 import StoreItem from "./StoreItem.vue";
-import { onMounted } from "vue";
+//import { onMounted } from "vue";
 import { useProductStore } from "../stores/ProductStore";
-import { ref } from "vue";
-import { ProductDoc } from "../types/product";
+//import { ref } from "vue";
+//import { ProductDoc } from "../types/product";
 
 const productStore = useProductStore();
 </script>

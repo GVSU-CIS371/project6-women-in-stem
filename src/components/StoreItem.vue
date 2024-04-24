@@ -23,7 +23,6 @@
         <span>{{ product.data.stock }}</span>
       </v-row>
       <v-col cols="1"></v-col>
-
       <v-img
         :src="product.data.image"
         width="200"
@@ -32,21 +31,81 @@
       ></v-img>
       <v-card-text>{{ product.data.description }}</v-card-text>
       <v-btn color="red" @click="deleteProduct">Delete</v-btn>
+      
+      <v-btn color="blue" @click="startEditing">Modify</v-btn>
     </v-card>
+
+    <v-dialog v-model="isEditing" persistent max-width="600px">
+      <v-card>
+        <v-card-title>Edit Product</v-card-title>
+        <v-card-text>
+          <v-text-field v-model="editableProduct.name" label="Name"></v-text-field>
+          <v-text-field v-model="editableProduct.description" label="Description"></v-text-field>
+          <v-text-field v-model="editableProduct.image" label="Image URL"></v-text-field>
+          <v-text-field v-model="editableProduct.price" label="Price" type="number"></v-text-field>
+        <v-text-field v-model="editableProduct.rating" label="Rating" type="number"></v-text-field>
+        <v-text-field v-model="editableProduct.stock" label="Stock" type="number"></v-text-field>
+          <!-- ... other fields ... -->
+          <v-select
+            v-model="editableProduct.category"
+            :items="categories"
+            label="Category"
+            required
+          ></v-select>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" @click="isEditing = false">Cancel</v-btn>
+          <v-btn color="green" @click="updateProduct">Update</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ref, reactive} from "vue";
 import { ProductDoc } from "../types/product";
 import { useProductStore } from "../stores/ProductStore";
+import { doc, updateDoc } from "firebase/firestore";
+import db from "c:/Users/kcree/OneDrive/web dev/project6-women-in-stem/src/firebase";
 
 const { product } = defineProps<{
   product: ProductDoc;
 }>();
 
 const productStore = useProductStore();
+const isEditing = ref(false);
 
-// Method to delete the current product
+
+const editableProduct = reactive({ ...product.data });
+
+
+const categories = ['Groceries', 'Electronics', 'Clothes'];
+
+
+const startEditing = () => {
+  Object.assign(editableProduct, product.data); // Reset any changes
+  isEditing.value = true;
+};
+
+
+const updateProduct = async () => {
+  if (confirm("Are you sure you want to update this product?")) {
+    try {
+      const productRef = doc(db, "products", product.id);
+      await updateDoc(productRef, { ...editableProduct });
+      Object.assign(product.data, editableProduct); // Update local state
+      isEditing.value = false;
+      console.log("Product updated with ID:", product.id);
+      // Trigger reactivity in case you are using it to display
+      //productStore.triggerUpdate();
+    } catch (error) {
+      console.error("Error updating product: ", error);
+    }
+  }
+};
+
 const deleteProduct = async () => {
   // console.log('Deleting product:', product.id);
   // await productStore.deleteProduct(product.id);

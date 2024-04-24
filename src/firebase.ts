@@ -1,8 +1,6 @@
 // Import the functions you need from the SDKs you need
+import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import 'firebase/firestore';
-import 'firebase/storage';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -13,9 +11,11 @@ const firebaseConfig = {
   storageBucket: "project6-fd3b6.appspot.com",
   messagingSenderId: "391108146744",
   appId: "1:391108146744:web:84762317a5b174536918cd",
-  measurementId: "G-RL7K652JDG"
+  measurementId: "G-RL7K652JDG",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
+export default db;

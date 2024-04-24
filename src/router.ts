@@ -8,29 +8,28 @@ const routes = [
   {
     path: "/",
     name: "home",
-    props: true,
     component: HomeView,
   },
   {
     path: "/clothing",
     name: "clothing",
-    component: ClothingView, 
+    component: ClothingView,
   },
   {
     path: "/electronics",
     name: "electronics",
-    component: ElectronicsView, 
+    component: ElectronicsView,
   },
   {
     path: "/groceries",
     name: "groceries",
-    component: GroceriesView, 
+    component: GroceriesView,
   },
   {
     path: "/bestseller",
     name: "bestseller",
-    component: BestSellerView, 
-  }
+    component: BestSellerView,
+  },
 ];
 
 const router = createRouter({

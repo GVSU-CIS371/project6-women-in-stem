@@ -57,6 +57,29 @@ export const useProductStore = defineStore("ProductStore", {
       }
     },
 
+    updateProduct(updatedProduct: ProductDoc) {
+      try {
+        const db = getFirestore();
+        const productRef = doc(db, 'products', updatedProduct.id);
+        updateDoc(productRef, updatedProduct.data);
+        console.log("Updated product with ID:", updatedProduct.id);
+        
+        // Update the products array in Pinia state after update
+        const index = this.products.findIndex(product => product.id === updatedProduct.id);
+        if (index !== -1) {
+          this.products[index] = updatedProduct;
+        }
+        const allIndex = this.products.findIndex(product => product.id === updatedProduct.id);
+        if (allIndex !== -1) {
+          this.products[allIndex] = updatedProduct;
+        }
+        
+        console.log("Updated pinia stuff")
+      } catch (error) {
+        console.error('Error updating product:', error);
+      }
+    },
+
     filterByCategory(category: string) {
       if (!category) {
         return this.products;

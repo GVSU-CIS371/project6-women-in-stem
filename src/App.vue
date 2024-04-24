@@ -30,5 +30,6 @@ const links = ref([
   { text: "Clothing", to: "/clothing", icon: "mdi-tshirt-crew" },
   { text: "Groceries", to: "/groceries", icon: "mdi-cart" },
   { text: "Best Seller", to: "/bestseller", icon: "mdi-cash-register" },
+  {text: "Add Product", to: "/add-product", icon: "mdi-plus"}
 ]);
 </script>

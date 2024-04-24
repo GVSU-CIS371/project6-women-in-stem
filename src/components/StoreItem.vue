@@ -30,9 +30,13 @@
         class="mx-auto"
       ></v-img>
       <v-card-text>{{ product.data.description }}</v-card-text>
-      <v-btn color="red" @click="deleteProduct">Delete</v-btn>
-      
-      <v-btn color="blue" @click="startEditing">Modify</v-btn>
+      <div class="d-flex justify-space-between align-center">
+    <!-- Delete button on the left -->
+    <v-btn color="red" @click="deleteProduct">Delete</v-btn>
+
+    <!-- Modify button on the right -->
+    <v-btn color="blue" @click="startEditing">Modify</v-btn>
+  </div>
     </v-card>
 
     <v-dialog v-model="isEditing" persistent max-width="600px">

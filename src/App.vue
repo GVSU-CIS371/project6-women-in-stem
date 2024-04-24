@@ -75,7 +75,7 @@ const links = ref([
 
 // Dialog control
 const showDialog = ref(false);
-const categories = ['Groceries', 'Electronics', 'Clothes'];
+const categories = ['Groceries', 'Electronics', 'Clothing'];
 // New product model
 const newProduct = ref({
   name: '',

@@ -36,7 +36,13 @@
         <v-text-field v-model="newProduct.price" label="Price" type="number"></v-text-field>
         <v-text-field v-model="newProduct.rating" label="Rating" type="number"></v-text-field>
         <v-text-field v-model="newProduct.stock" label="Stock" type="number"></v-text-field>
-        <v-text-field v-model="newProduct.category" label="Category"></v-text-field>
+        <v-select
+        v-model="newProduct.category"
+        :items="categories"
+        label="Category"
+        required
+      ></v-select>
+       
       </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -69,7 +75,7 @@ const links = ref([
 
 // Dialog control
 const showDialog = ref(false);
-
+const categories = ['Groceries', 'Electronics', 'Clothes'];
 // New product model
 const newProduct = ref({
   name: '',
